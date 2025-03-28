@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./assets/books.ico" type="image/x-icon">
+    <title>Books Paglu Library</title>
+</head>
+
+<body>
+    <header>
+        <input type="text" name="search" id="search">
+    </header>
+    <main>
+        <div>
+            <input type="radio" checked name="view_style" id="grid" value="Grid"><label for="grid">
+                Grid</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="view_style" id="list" value="List"><label for="list"> List</label>
+        </div>
+        <div class="container" id="container">
+            <a href="http://books.google.co.in/books?id=dfJqmAEACAAJ&dq=developer&hl=&source=gbs_api">
+                <div class="book">
+                    <div class="thumb">
+                        <img src="http://books.google.com/books/content?id=KA9QDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                        alt="book-thumb">
+                    </div>
+                    <div class="details">
+                        <span id="title">Practices of an Agile Developer</span>
+                        <span id="author">By Mike Gunderloy</span>
+                    </div>
+                    <div class="publisher-details">
+                        <span id="publisher">Sybex</span>
+                        <span>⦁</span>
+                        <span id="published-date">2004-05-07</span>
+                    </div>
+                </div>
+
+            </a>
+            
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="./script.js"></script>
+</body>
+
+</html>
