@@ -11,34 +11,30 @@
 
 <body>
     <header>
-        <input type="text" name="search" id="search">
+        <h2>
+            The Books Paglu Library
+        </h2>
+        <div>
+            <input type="text" name="search" id="search" placeholder="Search">
+        </div>
     </header>
     <main>
-        <div>
-            <input type="radio" checked name="view_style" id="grid" value="Grid"><label for="grid">
-                Grid</label>&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="view_style" id="list" value="List"><label for="list"> List</label>
+        <div class="settings">
+            <div>
+                <input type="radio" checked name="view_style" id="grid" value="Grid"><label for="grid">
+                    Grid</label>&nbsp;&nbsp;
+                <input type="radio" name="view_style" id="list" value="List"><label for="list"> List</label>
+            </div>
+            <div>
+                <span>Sort By</span>
+                <select name="" id="sort">
+                    <option value="none" selected>None</option>
+                    <option value="alphabet">Alphabet</option>
+                    <option value="date">Date of Publishing</option>
+                </select>
+            </div>
         </div>
         <div class="container" id="container">
-            <a href="http://books.google.co.in/books?id=dfJqmAEACAAJ&dq=developer&hl=&source=gbs_api">
-                <div class="book">
-                    <div class="thumb">
-                        <img src="http://books.google.com/books/content?id=KA9QDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-                        alt="book-thumb">
-                    </div>
-                    <div class="details">
-                        <span id="title">Practices of an Agile Developer</span>
-                        <span id="author">By Mike Gunderloy</span>
-                    </div>
-                    <div class="publisher-details">
-                        <span id="publisher">Sybex</span>
-                        <span>⦁</span>
-                        <span id="published-date">2004-05-07</span>
-                    </div>
-                </div>
-
-            </a>
-            
         </div>
     </main>
     <footer>

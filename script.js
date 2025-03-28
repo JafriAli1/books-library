@@ -1,7 +1,8 @@
-let books = [];
-let allBooks= []
+let books = JSON.parse(localStorage.getItem("allBooks")) || [];
+let allBooks = JSON.parse(localStorage.getItem("allBooks")) || [];
 async function fetchAll() {
-  const url = `https://api.freeapi.app/api/v1/public/books?page=1&$limit=200&query=tech`
+  const url =
+    "https://api.freeapi.app/api/v1/public/books?page=1&limit=20&inc=kind%252Cid%252Cetag%252CvolumeInfo&query=tech";
   const options = { method: "GET", headers: { accept: "application/json" } };
   try {
     const response = await fetch(url, options);
@@ -32,26 +33,39 @@ async function fetchBooks(limit) {
     console.log(error);
   }
 }
-fetchBooks(20);
+
+if(books.length==0){
+  fetchBooks(20).then(() => {
+    render(books);
+  });
+}
+else{
+  render(books)
+}
+
+
 
 function render(books) {
   let booksElement= books.map((book, index) => {
     const title = book.volumeInfo.title
     const thumb = book.volumeInfo.imageLinks.thumbnail
     const link = book.volumeInfo.infoLink
-        return `<a href="${link}">
+    const author = book.volumeInfo.authors || ["Unknown"]
+    const publisher = book.volumeInfo.publisher
+    const date = book.volumeInfo.publishedDate
+        return `<a href="${link}" target="_blank" rel="noopener noreferrer">
                 <div class="book" id="${index}">
                     <div class="thumb">
                         <img src="${thumb} alt="book-thumb">
                     </div>
                     <div class="details">
                         <span class="title">${title}</span>
-                        <span class="author">By</span>
+                        <span class="author">By ${author[0]}</span>
                     </div>
                     <div class="publisher-details">
-                        <span id="publisher">Sybex</span>
-                        <span>⦁</span>
-                        <span id="published-date">2004-05-07</span>
+                        <p id="publisher">${publisher}</p>
+                        
+                        <p id="published-date">${date}</p>
                     </div>
                 </div>
             </a>`;
@@ -61,9 +75,6 @@ function render(books) {
   document.getElementById("container").innerHTML = booksElement;
   switchView()
 }
-
-setTimeout(()=>render(books), 1000)
-
 
 function switchView() {
   if (document.querySelector('input[id="grid"]').checked) {
@@ -95,13 +106,53 @@ document.querySelectorAll("input[name=view_style]").forEach((element) => {
   });
 });
 
-function sortBooks() {}
 
-function search() {
-  document.getElementById('searchh').addEventListener('input',(event)=>{
-     const searchTerm = event.target.value.toLowerCase();
-     const filteredData = data.filter((user) =>
-       user.name.toLowerCase().includes(searchTerm)
-     );
-  })
+//search
+document.getElementById("search").addEventListener("input", (event) => {
+  const searchTerm = event.target.value.toLowerCase();
+  const filteredData = allBooks.filter((book) =>
+    book.volumeInfo.title.toLowerCase().includes(searchTerm)
+  );
+
+  render(filteredData);
+});
+
+//sort
+document.getElementById('sort').addEventListener('change', (event)=>{
+  let sortedBooks
+  if(event.target.value=='alphabet'){
+      sortedBooks = sortBooks("alphabet");
+    }
+  else if (event.target.value == "date") {
+    sortedBooks = sortBooks("date");
+    sortedBooks.reverse()
+  }
+  else{
+    return render(books)
+  }
+  render(sortedBooks)
+})
+
+
+function sortBooks(type) {
+  // Creating a new sorted array without modifying the original array
+
+  const sortedBooks = [...books].sort((a, b) => {
+    const titleA = a.volumeInfo.title.toLowerCase();
+    const titleB = b.volumeInfo.title.toLowerCase();
+    const dateA = a.volumeInfo.publishedDate || "0000-00-00"; // Handle missing date
+    const dateB = b.volumeInfo.publishedDate || "0000-00-00";
+
+    //sort by title
+    if(type =="alphabet"){
+      if (titleA < titleB) return -1;
+      if (titleA > titleB) return 1;
+    } else if(type == "date"){
+      return new Date(dateA) - new Date(dateB);
+    } 
+    else{
+      return books
+    }   
+  });
+  return sortedBooks;
 }

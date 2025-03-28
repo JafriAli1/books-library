@@ -13,8 +13,19 @@ a{
 body{
     font-family: "Lora", serif;
     background-color: black;
-    padding: 1rem;
     color: #ffff
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    color: black;
+    padding: 1rem;
+}
+
+main{
+    padding: 1rem;
 }
 
 /* grid layout */
@@ -35,7 +46,7 @@ body{
     color: black;
 }
 
-.details span{
+.details p{
     display: block;
 }
 
@@ -91,12 +102,18 @@ body{
     margin-top: -1rem;
 }
 
-.book-list .details span{
+.book-list .details p{
     display: inline;
 }
 
-.publisher-details span{
+.publisher-details p{
     font-size: 0.8rem;
     color: #636363;
     font-weight: 500;
+}
+
+.settings{
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
 }
