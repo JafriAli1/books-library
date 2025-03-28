@@ -29,6 +29,7 @@ async function fetchBooks(limit) {
     }
     const x = await response.json();
     books = x.data.data;
+    localStorage.setItem("allBooks", JSON.stringify(books));
   } catch (error) {
     console.log(error);
   }
